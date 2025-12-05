@@ -25,47 +25,17 @@ export const UI = () => {
 
   return (
     <>
-      <main className=" pointer-events-none select-none z-10 fixed  inset-0  flex justify-between flex-col">
-        <a
-          className="pointer-events-auto mt-10 ml-10"
-          href="/"
-        >
-          <span className="text-white font-bold text-2xl">
-            <span className="text-[#d4af37]">DIGESTO</span> <span className="text-sm">Volume I</span>
-          </span>
-        </a>
-        <div className="w-full overflow-auto pointer-events-auto flex justify-center">
-          <div className="overflow-auto flex items-center gap-4 max-w-full p-10">
-            <button
-              className={`border-transparent hover:border-white transition-all duration-300 px-6 py-3 rounded-full text-lg uppercase shrink-0 border ${
-                page === 0
-                  ? "bg-white/90 text-black"
-                  : "bg-black/30 text-white"
-              }`}
-              onClick={() => setPage(0)}
-            >
-              Copertina
-            </button>
-            <button
-              className={`border-transparent hover:border-white transition-all duration-300 px-6 py-3 rounded-full text-lg uppercase shrink-0 border ${
-                page === 1
-                  ? "bg-white/90 text-black"
-                  : "bg-black/30 text-white"
-              }`}
-              onClick={() => setPage(1)}
-            >
-              Pagina 1
-            </button>
-            <button
-              className={`border-transparent hover:border-white transition-all duration-300 px-6 py-3 rounded-full text-lg uppercase shrink-0 border ${
-                page === 2
-                  ? "bg-white/90 text-black"
-                  : "bg-black/30 text-white"
-              }`}
-              onClick={() => setPage(2)}
-            >
-              Retro
-            </button>
+      <main className="pointer-events-none select-none z-10 fixed inset-0 flex justify-between flex-col">
+        {/* Logo removed as requested */}
+
+        {/* Subtle instruction for users */}
+        <div className="pointer-events-none fixed bottom-10 left-0 right-0 flex justify-center">
+          <div className="bg-black/40 backdrop-blur-sm px-8 py-4 rounded-full">
+            <p className="text-white/80 text-sm">
+              {page === 0 ? "Clicca sulla copertina per aprire il libro" :
+               page === 1 ? "Clicca sul bottone 'Accedi a Digesto AI' o sulla copertina per chiudere" :
+               "Clicca sulla copertina per tornare all'inizio"}
+            </p>
           </div>
         </div>
       </main>

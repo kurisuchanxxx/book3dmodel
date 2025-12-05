@@ -10,7 +10,7 @@ import { step } from "three/examples/jsm/nodes/Nodes.js";
 
 const PAGE_WIDTH = 1.28;
 const PAGE_HEIGHT = 1.71; // 4:3 aspect ratio
-const PAGE_DEPTH = 0.025; // Increased thickness for spine (ratio ~1:8 with height)
+const PAGE_DEPTH = 0.05; // Increased thickness for spine - more prominent
 const PAGE_SEGMENTS = 30;
 const SEGMENT_WIDTH = PAGE_WIDTH / PAGE_SEGMENTS;
 

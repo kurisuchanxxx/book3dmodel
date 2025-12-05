@@ -101,26 +101,29 @@ function generateLeftPage() {
     ctx.fillRect(Math.random() * width, Math.random() * height, 1, 1);
   }
 
-  // Text
-  ctx.fillStyle = "#222";
-  ctx.font = "32px serif";
+  // Text - Larger and darker
+  ctx.fillStyle = "#000000"; // Pure black for maximum contrast
+  ctx.font = "bold 48px serif"; // Increased from 32px to 48px
   ctx.textAlign = "left";
 
   const text = [
     "",
-    "",
     "Questo volume raccoglie",
-    "l'elaborazione, l'analisi e la sintesi",
-    "delle fonti, realizzate attraverso",
-    "strumenti di Intelligenza Artificiale.",
+    "l'elaborazione, l'analisi",
+    "e la sintesi delle fonti,",
+    "realizzate attraverso",
+    "strumenti di Intelligenza",
+    "Artificiale.",
     "",
-    "È una collezione in continua",
-    "evoluzione: un ponte tra tradizione",
-    "giuridica e nuove tecnologie.",
+    "È una collezione in",
+    "continua evoluzione:",
+    "un ponte tra tradizione",
+    "giuridica e nuove",
+    "tecnologie.",
   ];
 
-  const startY = 200;
-  const lineHeight = 60;
+  const startY = 150;
+  const lineHeight = 85; // Increased spacing for larger text
 
   text.forEach((line, index) => {
     ctx.fillText(line, 100, startY + index * lineHeight);
@@ -154,15 +157,15 @@ function generateRightPage() {
     ctx.fillRect(Math.random() * width, Math.random() * height, 1, 1);
   }
 
-  // Button
-  const buttonX = width / 2 - 250;
-  const buttonY = height / 2 - 50;
-  const buttonWidth = 500;
-  const buttonHeight = 100;
+  // Button - Larger and more prominent
+  const buttonX = width / 2 - 350;
+  const buttonY = height / 2 - 80;
+  const buttonWidth = 700;
+  const buttonHeight = 160;
 
   // Shadow
-  ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-  ctx.fillRect(buttonX + 5, buttonY + 5, buttonWidth, buttonHeight);
+  ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+  ctx.fillRect(buttonX + 8, buttonY + 8, buttonWidth, buttonHeight);
 
   // Button gradient
   const buttonGradient = ctx.createLinearGradient(buttonX, buttonY, buttonX, buttonY + buttonHeight);
@@ -173,20 +176,20 @@ function generateRightPage() {
 
   // Border
   ctx.strokeStyle = GOLD;
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 5;
   ctx.strokeRect(buttonX, buttonY, buttonWidth, buttonHeight);
 
-  // Button text
+  // Button text - Larger
   ctx.fillStyle = WHITE;
-  ctx.font = "bold 40px sans-serif";
+  ctx.font = "bold 56px sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillText("Accedi a Digesto AI", width / 2, height / 2);
 
-  // Instruction
-  ctx.fillStyle = "#666";
-  ctx.font = "24px serif";
-  ctx.fillText("Clicca per accedere", width / 2, buttonY - 40);
+  // Instruction - Larger
+  ctx.fillStyle = "#000000";
+  ctx.font = "bold 36px serif";
+  ctx.fillText("Clicca per accedere", width / 2, buttonY - 60);
 
   return canvas;
 }
