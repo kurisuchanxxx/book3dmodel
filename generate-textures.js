@@ -122,7 +122,7 @@ function generateLeftPage() {
     "tecnologie.",
   ];
 
-  const startY = 350; // Moved down to be more centered vertically
+  const startY = 220; // Moved up more
   const lineHeight = 85; // Increased spacing for larger text
 
   text.forEach((line, index) => {
@@ -133,9 +133,58 @@ function generateLeftPage() {
   ctx.strokeStyle = DIGESTO_BLUE;
   ctx.lineWidth = 4;
   ctx.beginPath();
-  ctx.moveTo(width / 2 - 150, 280);
-  ctx.lineTo(width / 2 + 150, 280);
+  ctx.moveTo(width / 2 - 150, 180);
+  ctx.lineTo(width / 2 + 150, 180);
   ctx.stroke();
+
+  return canvas;
+}
+
+// Right Page - Hover version
+function generateRightPageHover() {
+  const width = 1024;
+  const height = 1366;
+  const canvas = createCanvas(width, height);
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = "#f8f6f0";
+  ctx.fillRect(0, 0, width, height);
+
+  // Paper texture
+  for(let i = 0; i < 1000; i++) {
+    const alpha = Math.random() * 0.1;
+    ctx.fillStyle = `rgba(200, 190, 170, ${alpha})`;
+    ctx.fillRect(Math.random() * width, Math.random() * height, 1, 1);
+  }
+
+  // Button - Hover state with lighter gradient
+  const buttonX = width / 2 - 350;
+  const buttonY = height / 2 - 30;
+  const buttonWidth = 700;
+  const buttonHeight = 160;
+
+  // Shadow
+  ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+  ctx.fillRect(buttonX + 8, buttonY + 8, buttonWidth, buttonHeight);
+
+  // Button gradient - Much lighter for hover
+  const buttonGradient = ctx.createLinearGradient(buttonX, buttonY, buttonX, buttonY + buttonHeight);
+  buttonGradient.addColorStop(0, "#6b8ff5"); // Lighter blue
+  buttonGradient.addColorStop(1, "#5a7dd9"); // Lighter blue
+  ctx.fillStyle = buttonGradient;
+  ctx.fillRect(buttonX, buttonY, buttonWidth, buttonHeight);
+
+  // Border
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 5;
+  ctx.strokeRect(buttonX, buttonY, buttonWidth, buttonHeight);
+
+  // Button text - Dark for hover
+  ctx.fillStyle = "#1a1a1a"; // Dark text
+  ctx.font = "bold 56px sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("Accedi a Digesto AI", width / 2, buttonY + buttonHeight / 2);
 
   return canvas;
 }
@@ -157,9 +206,9 @@ function generateRightPage() {
     ctx.fillRect(Math.random() * width, Math.random() * height, 1, 1);
   }
 
-  // Button - Larger and more prominent, better centered
+  // Button - Larger and more prominent, properly centered
   const buttonX = width / 2 - 350;
-  const buttonY = height / 2 + 50; // Moved down slightly for better vertical centering
+  const buttonY = height / 2 - 30; // Better vertical position
   const buttonWidth = 700;
   const buttonHeight = 160;
 
@@ -179,17 +228,14 @@ function generateRightPage() {
   ctx.lineWidth = 5;
   ctx.strokeRect(buttonX, buttonY, buttonWidth, buttonHeight);
 
-  // Button text - Larger
+  // Button text - Larger and properly centered in button
   ctx.fillStyle = WHITE;
   ctx.font = "bold 56px sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText("Accedi a Digesto AI", width / 2, height / 2);
+  ctx.fillText("Accedi a Digesto AI", width / 2, buttonY + buttonHeight / 2);
 
-  // Instruction - Larger
-  ctx.fillStyle = "#000000";
-  ctx.font = "bold 36px serif";
-  ctx.fillText("Clicca per accedere", width / 2, buttonY - 60);
+  // Instruction text removed as requested
 
   return canvas;
 }
@@ -215,6 +261,10 @@ try {
   const rightPage = generateRightPage();
   fs.writeFileSync(path.join(outputDir, 'page-1-right.jpg'), rightPage.toBuffer('image/jpeg'));
   console.log('✓ Generated page-1-right.jpg');
+
+  const rightPageHover = generateRightPageHover();
+  fs.writeFileSync(path.join(outputDir, 'page-1-right-hover.jpg'), rightPageHover.toBuffer('image/jpeg'));
+  console.log('✓ Generated page-1-right-hover.jpg');
 
   console.log('\n✓ All textures generated successfully!');
 } catch (error) {

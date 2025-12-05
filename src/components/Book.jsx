@@ -86,14 +86,18 @@ pages.forEach((page) => {
 })
 
 const Page = ({number, front, back, page, opened, bookClosed, isRightPage, ...props}) => {
-  const [picture, picture2, pictureRoughness] = useTexture([
+  const [picture, picture2, pictureRoughness, pictureHover] = useTexture([
     `/textures/${front}.jpg`,
     `/textures/${back}.jpg`,
-    ...(number === 0 || number === pages.length -1 
+    ...(number === 0 || number === pages.length -1
       ? [`textures/book-cover-roughness.jpg`]
       : []),
-  ]); 
+    ...(isRightPage && front === "page-1-right"
+      ? [`/textures/page-1-right-hover.jpg`]
+      : []),
+  ]);
   picture.colorSpace = picture2.colorSpace = SRGBColorSpace;
+  if (pictureHover) pictureHover.colorSpace = SRGBColorSpace;
   const group = useRef();
   const turnedAt = useRef(0);
   const lastOpened = useRef(opened);
@@ -160,8 +164,19 @@ const Page = ({number, front, back, page, opened, bookClosed, isRightPage, ...pr
       return;
     }
 
+    // Change texture on hover for right page button
+    if (isRightPage && front === "page-1-right" && pictureHover) {
+      if (highlighted && skinnedMeshRef.current.material[4].map !== pictureHover) {
+        skinnedMeshRef.current.material[4].map = pictureHover;
+        skinnedMeshRef.current.material[4].needsUpdate = true;
+      } else if (!highlighted && skinnedMeshRef.current.material[4].map !== picture) {
+        skinnedMeshRef.current.material[4].map = picture;
+        skinnedMeshRef.current.material[4].needsUpdate = true;
+      }
+    }
+
     const emissiveIntensity = highlighted ? 0.22 : 0;
-    skinnedMeshRef.current.material[4].emissiveIntensity = 
+    skinnedMeshRef.current.material[4].emissiveIntensity =
     skinnedMeshRef.current.material[5].emissiveIntensity = MathUtils.lerp(
       skinnedMeshRef.current.material[4].emissiveIntensity,
       emissiveIntensity,
