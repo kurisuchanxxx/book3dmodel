@@ -101,10 +101,10 @@ function generateLeftPage() {
     ctx.fillRect(Math.random() * width, Math.random() * height, 1, 1);
   }
 
-  // Text - Larger and darker
+  // Text - Larger, darker and centered
   ctx.fillStyle = "#000000"; // Pure black for maximum contrast
   ctx.font = "bold 48px serif"; // Increased from 32px to 48px
-  ctx.textAlign = "left";
+  ctx.textAlign = "center"; // Changed to center
 
   const text = [
     "",
@@ -122,19 +122,19 @@ function generateLeftPage() {
     "tecnologie.",
   ];
 
-  const startY = 150;
+  const startY = 350; // Moved down to be more centered vertically
   const lineHeight = 85; // Increased spacing for larger text
 
   text.forEach((line, index) => {
-    ctx.fillText(line, 100, startY + index * lineHeight);
+    ctx.fillText(line, width / 2, startY + index * lineHeight); // Centered horizontally
   });
 
-  // Decorative line
+  // Decorative line - centered
   ctx.strokeStyle = DIGESTO_BLUE;
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 4;
   ctx.beginPath();
-  ctx.moveTo(100, 150);
-  ctx.lineTo(300, 150);
+  ctx.moveTo(width / 2 - 150, 280);
+  ctx.lineTo(width / 2 + 150, 280);
   ctx.stroke();
 
   return canvas;
@@ -157,9 +157,9 @@ function generateRightPage() {
     ctx.fillRect(Math.random() * width, Math.random() * height, 1, 1);
   }
 
-  // Button - Larger and more prominent
+  // Button - Larger and more prominent, better centered
   const buttonX = width / 2 - 350;
-  const buttonY = height / 2 - 80;
+  const buttonY = height / 2 + 50; // Moved down slightly for better vertical centering
   const buttonWidth = 700;
   const buttonHeight = 160;
 
