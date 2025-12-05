@@ -1,43 +1,19 @@
 import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
 
-const pictures = [
-  "DSC00680",
-  "DSC00933",
-  "DSC00966",
-  "DSC00983",
-  "DSC01011",
-  "DSC01040",
-  "DSC01064",
-  // "DSC01071",
-  // "DSC01103",
-  // "DSC01145",
-  // "DSC01420",
-  // "DSC01461",
-  // "DSC01489",
-  // "DSC02031",
-  // "DSC02064",
-  // "DSC02069",
-];
-
 export const pageAtom = atom(0);
+
+// Simplified book structure: Cover + Page 1 spread only
 export const pages = [
   {
-    front: "book-cover",
-    back: pictures[0],
+    front: "book-cover",        // Front cover (Copertina Anteriore)
+    back: "page-1-left",        // Left page of spread 1
+  },
+  {
+    front: "page-1-right",      // Right page of spread 1
+    back: "book-back",          // Back cover (Copertina Posteriore)
   },
 ];
-for (let i = 1; i < pictures.length - 1; i += 2) {
-  pages.push({
-    front: pictures[i % pictures.length],
-    back: pictures[(i + 1) % pictures.length],
-  });
-}
-
-pages.push({
-  front: pictures[pictures.length - 1],
-  back: "book-back",
-});
 
 export const UI = () => {
   const [page, setPage] = useAtom(pageAtom);
@@ -54,32 +30,41 @@ export const UI = () => {
           className="pointer-events-auto mt-10 ml-10"
           href="/"
         >
-          <span className="text-white font-bold"><span className="text-[#5a47ce]">&#123; </span>SJCODES<span className="text-[#5a47ce]"> &#125;</span></span>
+          <span className="text-white font-bold text-2xl">
+            <span className="text-[#d4af37]">DIGESTO</span> <span className="text-sm">Volume I</span>
+          </span>
         </a>
         <div className="w-full overflow-auto pointer-events-auto flex justify-center">
           <div className="overflow-auto flex items-center gap-4 max-w-full p-10">
-            {[...pages].map((_, index) => (
-              <button
-                key={index}
-                className={`border-transparent hover:border-white transition-all duration-300  px-4 py-3 rounded-full  text-lg uppercase shrink-0 border ${
-                  index === page
-                    ? "bg-white/90 text-black"
-                    : "bg-black/30 text-white"
-                }`}
-                onClick={() => setPage(index)}
-              >
-                {index === 0 ? "Cover" : `Page ${index}`}
-              </button>
-            ))}
             <button
-              className={`border-transparent hover:border-white transition-all duration-300  px-4 py-3 rounded-full  text-lg uppercase shrink-0 border ${
-                page === pages.length
+              className={`border-transparent hover:border-white transition-all duration-300 px-6 py-3 rounded-full text-lg uppercase shrink-0 border ${
+                page === 0
                   ? "bg-white/90 text-black"
                   : "bg-black/30 text-white"
               }`}
-              onClick={() => setPage(pages.length)}
+              onClick={() => setPage(0)}
             >
-              Back Cover
+              Copertina
+            </button>
+            <button
+              className={`border-transparent hover:border-white transition-all duration-300 px-6 py-3 rounded-full text-lg uppercase shrink-0 border ${
+                page === 1
+                  ? "bg-white/90 text-black"
+                  : "bg-black/30 text-white"
+              }`}
+              onClick={() => setPage(1)}
+            >
+              Pagina 1
+            </button>
+            <button
+              className={`border-transparent hover:border-white transition-all duration-300 px-6 py-3 rounded-full text-lg uppercase shrink-0 border ${
+                page === 2
+                  ? "bg-white/90 text-black"
+                  : "bg-black/30 text-white"
+              }`}
+              onClick={() => setPage(2)}
+            >
+              Retro
             </button>
           </div>
         </div>

@@ -10,7 +10,7 @@ import { step } from "three/examples/jsm/nodes/Nodes.js";
 
 const PAGE_WIDTH = 1.28;
 const PAGE_HEIGHT = 1.71; // 4:3 aspect ratio
-const PAGE_DEPTH = 0.003;
+const PAGE_DEPTH = 0.025; // Increased thickness for spine (ratio ~1:8 with height)
 const PAGE_SEGMENTS = 30;
 const SEGMENT_WIDTH = PAGE_WIDTH / PAGE_SEGMENTS;
 
@@ -85,7 +85,7 @@ pages.forEach((page) => {
   useTexture.preload(`/textures/book-cover-roughness.jpg`)
 })
 
-const Page = ({number, front, back, page, opened, bookClosed, ...props}) => {
+const Page = ({number, front, back, page, opened, bookClosed, isRightPage, ...props}) => {
   const [picture, picture2, pictureRoughness] = useTexture([
     `/textures/${front}.jpg`,
     `/textures/${back}.jpg`,
@@ -243,7 +243,13 @@ const Page = ({number, front, back, page, opened, bookClosed, ...props}) => {
   }}
   onClick={(e)=>{
     e.stopPropagation();
-    setPage(opened ? number : number + 1);
+    // If this is the right page (page 1 right side), redirect to Digesto AI
+    if (isRightPage && front === "page-1-right") {
+      window.location.href = "#link_capitolo_1";
+      // Alternative: window.open("#link_capitolo_1", "_blank");
+    } else {
+      setPage(opened ? number : number + 1);
+    }
     setHighlighted(false);
   }}
   >
@@ -290,12 +296,13 @@ export const Book = ({...props}) => {
   return (
   <group {...props} rotation-y={Math.PI / 2}>
     {[...pages].map((pageData, index) => (
-      <Page 
-        key={index} 
+      <Page
+        key={index}
         page={delayedPage}
-        number={index} 
+        number={index}
         opened = {delayedPage > index}
         bookClosed={delayedPage === 0 || delayedPage === pages.length}
+        isRightPage={pageData.front === "page-1-right"}
         {...pageData}
       />
     ))}
